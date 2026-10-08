@@ -1,0 +1,13 @@
+{
+  "name": "NatureLens — Offline AI Field Guide",
+  "short_name": "NatureLens",
+  "description": "Discover the outdoors with local open-weight AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8f1",
+  "theme_color": "#1f4a2e",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,21 @@
+'use client';
+
+import Link from 'next/link';
+import { ArrowRight, Camera, Compass, Leaf, MapPinned, ShieldCheck, Sparkles, TimerReset } from 'lucide-react';
+import { DiscoveryCard } from '@/components/DiscoveryCard';
+import { InstallButton } from '@/components/InstallButton';
+import { useNatureLens } from '@/lib/store';
+
+export default function HomePage() {
+  const { stats, discoveries } = useNatureLens();
+  const featured = discoveries.slice(0, 3);
+  return <>
+    <div className="topbar"><div><div className="kicker">Your field guide</div><h1>Touch grass.<br/>Notice more.</h1><p className="lead">NatureLens turns a walk into an interactive field mission using open-weight AI running locally. Capture less. Observe more.</p></div><InstallButton /></div>
+    <section className="card hero"><div className="hero-copy"><div className="badge"><Leaf size={13}/> Local-first nature exploration</div><h2 style={{marginTop:14}}>A field guide that gives your attention back.</h2><p className="lead">Point your camera at a plant, leaf, insect or curious detail. NatureLens explains what it notices, shows its confidence, then sends you looking for the next clue.</p><div className="actions"><Link className="btn btn-primary" href="/explore"><Compass size={16}/> Start an exploration <ArrowRight size={15}/></Link><Link className="btn btn-secondary" href="/dashboard"><MapPinned size={16}/> Open dashboard</Link></div></div><div className="hero-orbit"><div className="orbit-ring ring-one"/><div className="orbit-ring ring-two"/><div className="nature-core"><div style={{fontSize:76}}>🌿</div><strong>Look closer.</strong><span>Then put it away.</span></div></div></section>
+    <div className="stats"><div className="card stat"><div className="num">{stats.discoveries}</div><div className="label">Discoveries</div></div><div className="card stat"><div className="num">{stats.tasksCompleted}</div><div className="label">Outdoor prompts completed</div></div><div className="card stat"><div className="num">{stats.walks}</div><div className="label">Explorations</div></div><div className="card stat"><div className="num">{stats.minutes}m</div><div className="label">Outside time</div></div></div>
+    <section className="section"><div className="section-head"><div><div className="kicker">Recent</div><h2>Latest discoveries</h2></div><Link href="/discoveries">View all <ArrowRight size={13} style={{verticalAlign:'middle'}} /></Link></div><div className="grid-3">{featured.map(item=><DiscoveryCard key={item.id} discovery={item}/>)}</div></section>
+    <section className="section grid-3"><div className="card feature-card"><div className="feature-icon"><ShieldCheck size={18}/></div><div><div className="kicker">Private by default</div><h3>Keep observations local</h3><p>Photos, notes, quests and coordinates live in the browser unless you explicitly add syncing later.</p></div></div><div className="card feature-card"><div className="feature-icon"><Sparkles size={18}/></div><div><div className="kicker">Open-weight AI</div><h3>Reason without a cloud API</h3><p>Gemma can inspect an image, explain its evidence and generate a next observation challenge on your own machine.</p></div></div><div className="card feature-card"><div className="feature-icon"><TimerReset size={18}/></div><div><div className="kicker">Touch Grass loop</div><h3>Screen for seconds, outside for minutes</h3><p>The product measures discoveries, completed quests and time outdoors—not engagement time.</p></div></div></section>
+    <section className="section open-story"><div><div className="kicker">Why open matters</div><h2>Run the field guide where the field guide is being used.</h2><p className="lead">With Ollama + Gemma running locally, the image can stay on your machine instead of traveling to a third-party AI API. That makes offline inference, privacy and model swapping part of the product rather than a marketing claim.</p></div><Link className="btn btn-secondary" href="/journal"><Camera size={15}/> See your field journal</Link></section>
+    <div className="footer-note">Gemma 4 is an open model family with text and image input. NatureLens treats model outputs as hypotheses and shows confidence explicitly.</div>
+  </>;
+}
